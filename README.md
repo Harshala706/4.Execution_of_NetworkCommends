@@ -35,6 +35,18 @@ PROGRAM:
 CLIENT :
 ```
 import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    ip=input("Enter the website you want to ping ")
+    s.send(ip.encode())
+    print(s.recv(1024).decode())
+    
+    
+```
+SERVER :
+```
+import socket
 from pythonping import ping
 s=socket.socket()
 s.bind(('localhost',8000))
@@ -44,21 +56,13 @@ while True:
     hostname=c.recv(1024).decode()
     try:
         c.send(str(ping(hostname, verbose=False)).encode())
-    except Exception as e:  # Catch all errors
-        c.send(f"Error: {str(e)}".encode())
-```
-SERVER :
-```
-import socket
-s=socket.socket()
-s.connect(('localhost',8000))
-while True:
-    ip=input("Enter the website you want to ping ")
-    s.send(ip.encode())
-    print(s.recv(1024).decode())
+    except KeyError:
+        c.send("Not Found".encode())`
+
 ```
 ## Output
-<img width="937" height="524" alt="image" src="https://github.com/user-attachments/assets/4e957867-c8b0-41a8-9ce8-b0a74b054ff9" />
+<img width="1496" height="1109" alt="image" src="https://github.com/user-attachments/assets/eb7134f9-cff5-4116-b79d-7f853a439e86" />
+
 
 ## Result
 Thus Execution of Network commands Performed.
